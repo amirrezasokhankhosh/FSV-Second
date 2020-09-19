@@ -24,37 +24,36 @@ Route.post('/create_rolls', 'RoleController.create')
 Route.post('/admin', 'RoleController.admin').middleware('auth')
 
 // USER ROUTES
-Route.post('/register', 'UserController.register') //  CHECK
-Route.post('/login', 'UserController.login') //  CHECK
-
+Route.post('/register', 'UserController.register') 
+Route.post('/login', 'UserController.login') 
 // PRODUCT ROUTES
-Route.post('/product', 'ProductController.create').middleware('auth') //  CHECK
-Route.get('/products', 'ProductController.show').middleware('auth') //  CHECK
+Route.post('/product', 'ProductController.create').middleware('auth')
+Route.get('/products', 'ProductController.show').middleware('auth') 
 
 // CATEGORY ROUTES
-Route.post('/category', 'CategoryController.create').middleware('auth') //  CHECK
+Route.post('/category', 'CategoryController.create').middleware('auth') 
 
 // COMMENT ROUTES
-Route.post('/comment/:product_id', 'CommentController.create').middleware('auth') //  CHECK
-Route.get('/comment/:comment_id', 'CommentController.read').middleware('auth') //  CHECK
+Route.post('/comment/:product_id', 'CommentController.create').middleware('auth') 
+Route.get('/comment/:comment_id', 'CommentController.read').middleware('auth') 
 
 // CITY ROUTES
-Route.post('/city', 'CityController.create').middleware('auth') //  CHECK
+Route.post('/city', 'CityController.create').middleware('auth') 
 
 // CUSTOMER ROUTES
-Route.post('/customer', 'CustomerController.create').middleware('auth') //  CHECK
+Route.post('/customer', 'CustomerController.create').middleware('auth') 
 
 // CHECKOUT INFO ROUTES
-Route.post('/checkoutinfo', 'CheckoutinfoController.create').middleware(['auth', 'is:admin'])
-Route.delete('/checkoutinfo/:checkoutinfo_id', 'CheckoutinfoController.delete').middleware(['auth', 'is:admin'])
+Route.post('/checkoutinfo', 'CheckoutinfoController.create').middleware(['auth', 'is:admin' || 'can:create_checkoutinfo'])
+Route.delete('/checkoutinfo/:checkoutinfo_id', 'CheckoutinfoController.delete').middleware(['auth', 'is:admin' || 'delete:checkoutinfo'])
 
 // SHOPPING CARD ROUTES
-Route.post('/shoppingcard', 'ShoppingcardController.create').middleware(['auth', 'is:admin'])
-Route.get('/shoppingcards', 'ShoppingcardController.read').middleware(['auth', 'is:admin'])
-Route.put('/shoppingcard/:shoppingcard_id', 'ShoppingcardController.update').middleware(['auth', 'is:admin'])
+Route.post('/shoppingcard', 'ShoppingcardController.create').middleware(['auth', 'is:admin' || 'can:create_shoppingcard'])
+Route.get('/shoppingcards', 'ShoppingcardController.read').middleware(['auth', 'is:admin' || 'can:read_shoppingcard'])
+Route.put('/shoppingcard/:shoppingcard_id', 'ShoppingcardController.update').middleware(['auth', 'is:admin' || 'can:update_shoppingcard'])
 
 // ORDER ROUTES
-Route.post('/order', 'OrderController.create').middleware(['auth', 'is:admin'])
-Route.put('/order/:order_id', 'OrderController.readyToSend').middleware(['auth', 'can:ready_order' || 'is:admin'])
-Route.get('/orders', 'OrderController.readAll').middleware(['auth', 'can:read_order' || 'is:admin'])
+Route.post('/order', 'OrderController.create').middleware(['auth', 'is:admin' || 'can:create_order'])
+Route.put('/order/:order_id', 'OrderController.readyToSend').middleware(['auth', 'is:admin' || 'can:ready_order'])
+Route.get('/orders', 'OrderController.readAll').middleware(['auth', 'is:admin' || 'can:read_order'])
 Route.get('/received/:order_id', 'OrderController.received').middleware(['auth', 'is:admin'])

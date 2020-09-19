@@ -1,0 +1,4 @@
+*[] Factory - seed
+*[] Move rolls and permissions to seeds
+*[X] middlewares in routes
+*[] pagination
