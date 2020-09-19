@@ -1,4 +1,5 @@
-*[] Factory - seed
-*[] Move rolls and permissions to seeds
+*[X] Factory - seed
+*[X] Move rolls and permissions to seeds
 *[X] middlewares in routes
 *[] pagination
+*[] Postman document

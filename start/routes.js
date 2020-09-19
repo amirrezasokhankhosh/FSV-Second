@@ -20,7 +20,6 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 // THESE ROUTES MUST CHANGE TO FACTORY AND SEEDS
-Route.post('/create_rolls', 'RoleController.create')
 Route.post('/admin', 'RoleController.admin').middleware('auth')
 
 // USER ROUTES
