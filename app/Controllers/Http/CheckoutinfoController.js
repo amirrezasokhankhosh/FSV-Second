@@ -43,6 +43,14 @@ class CheckoutinfoController {
         await checkoutinfo.delete()
         return response.send({"message" : "Checkout info deleted succesfully."})
     }
+
+    async show({response , auth}){
+        var user = await auth.getUser()
+        await user.load('customer')
+        user = user.toJSON()
+        const checkout_infos = await Checkoutinfo.query().where('customer_id', user.customer.id).fetch()
+        response.send(checkout_infos)
+    }
 }
 
 module.exports = CheckoutinfoController

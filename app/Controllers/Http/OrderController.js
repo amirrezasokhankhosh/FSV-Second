@@ -35,7 +35,7 @@ class OrderController {
         const user = await auth.getUser()
         await user.load('customer')
         const customer = user.toJSON().customer
-        const orders = await Order.findBy('customer_id',customer.id)
+        const orders = await Order.query().where('customer_id', customer.id).fetch()
         return response.send(orders)
     }
 

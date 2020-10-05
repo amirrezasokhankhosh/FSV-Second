@@ -22,14 +22,18 @@ class UserController {
             response.send({ "message": "The user created succesfully." })
 
         } else {
-            response.send({"message" : "Enter a valid data."})
+            response.send({ "error": "true" })
         }
     }
 
     async login({ request, response, auth }) {
         const { email, password } = request.all()
-        const token = await auth.attempt(email, password)
-        return response.send(token)
+        try {
+            const token = await auth.attempt(email, password)
+            return response.send(token)
+        } catch {
+            return response.send({ "error": "true" })
+        }
     }
 
 }

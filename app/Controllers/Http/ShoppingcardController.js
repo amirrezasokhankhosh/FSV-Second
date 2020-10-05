@@ -32,10 +32,12 @@ class ShoppingcardController {
             productShoppingcard.product_id = products[i]
             productShoppingcard.shoppingcard_id = params.shoppingcard_id
             await productShoppingcard.save()
-            var productOrder = new ProductOrder()
-            productOrder.product_id = products[i]
-            productOrder.order_id = shoppingcard.order_id
-            await productOrder.save()
+            if (shoppingcard.order_id) {
+                var productOrder = new ProductOrder()
+                productOrder.product_id = products[i]
+                productOrder.order_id = shoppingcard.order_id
+                await productOrder.save()
+            }
             i = i + 1
         }
         return response.send({ "message": "Shopping card updated with the following products." })
@@ -45,7 +47,7 @@ class ShoppingcardController {
         const user = await auth.getUser()
         await user.load('customer')
         const customer = user.toJSON().customer
-        const shoppingcards = await Shoppingcard.findBy('customer_id', customer.id)
+        const shoppingcards = await Shoppingcard.query().where('customer_id', customer.id).fetch()
         return response.send(shoppingcards)
     }
 }

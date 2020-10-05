@@ -6,7 +6,7 @@ const Product = use('App/Models/Product')
 const Product_Category = use('App/Models/ProductCategory')
 class ProductController {
 
-    async create({ request, response, auth }) {
+    async create({ request, response , auth}) {
         const validation = await validate(request.all(), {
             name: 'required'
         })
@@ -26,7 +26,6 @@ class ProductController {
                 await product_Category.save()
                 i = i + 1
             }
-
             return response.send({ "message": "Product created succesfully." })
         } else {
             return response.send({ "message": "name is required" })
@@ -48,6 +47,11 @@ class ProductController {
             var products = await Product.query().with('comments').with('categories').fetch()
             return response.send(products.toJSON())
         }
+    }
+
+    async showOne({params , response}){
+        var product = await Product.query().where('id', params.product_id).with('comments').with('categories').fetch()
+        return response.send(product.toJSON()[0])
     }
 }
 

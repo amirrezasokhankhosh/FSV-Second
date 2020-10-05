@@ -19,6 +19,11 @@ class CategoryController {
             return response.send({"message" : "name is required"})
         }
     }
+
+    async show({response}){
+        var categories = await Category.all()
+        return response.send(categories)
+    }
 }
 
 module.exports = CategoryController

@@ -20,6 +20,11 @@ class CityController {
             return response.send({"message" : "Name is required."})
         }
     }
+
+    async show({response}){
+        const cities = await City.all()
+        response.send(cities)
+    }
 }
 
 module.exports = CityController

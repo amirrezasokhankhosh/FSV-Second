@@ -40,6 +40,12 @@ class RoleController {
         await user.roles().attach([adminRole[0].id])
         return response.send({"message" : "Admin role attached."})
     }
+
+    async showOne({response , auth}){
+        const user = await auth.getUser()
+        await user.load('roles')
+        return response.send(user)
+    }
 }
 
 module.exports = RoleController

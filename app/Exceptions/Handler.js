@@ -21,6 +21,7 @@ class ExceptionHandler extends BaseExceptionHandler {
    * @return {void}
    */
   async handle (error, { request, response }) {
+    console.log(error)
     return response.status(error.status).json({
       status: 'failed' ,
       message: error.message ,
